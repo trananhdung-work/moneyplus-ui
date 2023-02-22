@@ -1,4 +1,24 @@
-export default function LogIn() {
+// [ ] code show password feature
+
+export default function LogIn({ data, refUsername, refPassword }) {
+  const handleOnClick = () => {
+    isCorrectPassword(refUsername.current.value, refPassword.current.value)
+      ? console.log("1")
+      : console.log("0");
+
+    refUsername.current.value = "";
+    refPassword.current.value = "";
+  };
+
+  const isCorrectPassword = (username, password) => {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].username === username && data[i].password === password)
+        return true;
+    }
+
+    return false;
+  };
+
   return (
     <div>
       <div
@@ -36,9 +56,15 @@ export default function LogIn() {
         <h2 className="my-[50px] font-semibold text-[2rem]">Log In</h2>
 
         <form className="flex flex-col justify-center items-center gap-5">
-          <input className="login-input" type="text" placeholder="Username" />
+          <input
+            ref={refUsername}
+            className="login-input"
+            type="text"
+            placeholder="Username"
+          />
 
           <input
+            ref={refPassword}
             className="login-input"
             type="password"
             placeholder="Password"
@@ -52,6 +78,7 @@ export default function LogIn() {
           </button>
 
           <button
+            onClick={handleOnClick}
             className="h-[50px] w-[350px] bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg font-semibold text-lg text-white
             hover:bg-gradient-to-r hover:from-indigo-900 hover:via-purple-900 hover:to-pink-900"
             type="button"
